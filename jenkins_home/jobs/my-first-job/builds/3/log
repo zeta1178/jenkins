@@ -1,0 +1,8 @@
+Started by user [8mha:////4PbxapSkRS13vEAh9VIkQa0Gmd79biyw/Q1mAwu7ERVuAAAAlx+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzeEgZu/dLi1CL9xJTczDwACG0V4sAAAAA=[0mJenkins Admin
+Running as SYSTEM
+Building in workspace /var/jenkins_home/workspace/my-first-job
+[my-first-job] $ /bin/sh -xe /tmp/jenkins866231561740239885.sh
++ date
++ echo Current date and time is Tue Jul 18 13:38:51 UTC 2023
+Current date and time is Tue Jul 18 13:38:51 UTC 2023
+Finished: SUCCESS

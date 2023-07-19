@@ -1,0 +1,19 @@
+Manifest-Version: 1.0
+Created-By: Maven Archiver 3.6.0
+Build-Jdk-Spec: 18
+Specification-Title: Jenkins PowerShell plugin
+Specification-Version: 2.0
+Implementation-Title: Jenkins PowerShell plugin
+Implementation-Version: 2.0
+Group-Id: org.jenkins-ci.plugins
+Short-Name: powershell
+Long-Name: Jenkins PowerShell plugin
+Url: https://github.com/jenkinsci/powershell-plugin
+Plugin-Version: 2.0
+Hudson-Version: 2.361.4
+Jenkins-Version: 2.361.4
+Plugin-Developers: Damien Finck:damienfinck:damien.finck67+jenkins@gmail
+ .com,Chris Albrecht:chrisalbrecht:chris.albrecht+jenkins@gmail.com,Fili
+ pe Roque:froque:froque@premium-minds.com
+Plugin-ScmUrl: https://github.com/jenkinsci/powershell-plugin
+
