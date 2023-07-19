@@ -14,6 +14,8 @@ services:
     image: remote-host
     build:
       context: centos7
+    volumes:
+      - $PWD/aws-s3.sh:/tmp/script.sh
     networks:
       - net
   db_host:
