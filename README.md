@@ -417,4 +417,98 @@ networks:
 docker rm -fv remote-host
 docker-compose up -d
 ```
+38) execute
+```
+# set folder jenkins-data
+mkdir jenkins-ansible
+cd jenkins-ansible
+touch Dockerfile
+```
+39) edit Dockerfile inside jenkins-ansible
+```
+FROM jenkins/jenkins
+
+USER root
+
+RUN apt-get update && apt-get install python3-pip -y && \
+    pip3 install ansible --upgrade
+
+USER jenkins
+```
+40) return to jenkins-data folder, edit docker-compose.yml
+```
+version: '3'
+services:
+  jenkins:
+    container_name: jenkins
+    image: jenkins-ansible
+    build:
+      context: jenkins-ansible     
+    ports:
+      - "8080:8080"
+    volumes:
+      - $PWD/jenkins_home:/var/jenkins_home
+    networks:
+      - net
+  remote_host:
+    container_name: remote-host
+    image: remote-host
+    build:
+      context: centos7
+    volumes:
+      - $PWD/aws-s3.sh:/tmp/aws-s3.sh
+    networks:
+      - net
+  db_host:
+    container_name: db
+    image: mysql:5.7
+    environment:
+      - "MYSQL_ROOT_PASSWORD=1234"
+    volumes:
+      - $PWD/db_data:/var/lib/mysql
+    networks:
+      - net
+networks:
+  net:
+```
+41) execute
+```
+# rebuild
+docker-compose build
+docker-compose up -d
+docker exec -ti jenkins bash
+```
+42) execute
+```
+# return to jenkins-data folder
+mkdir jenkins_home/ansible
+# return to jenkins-data folder
+cp centos7/remote-key jenkins_home/ansible/
+# return to jenkins-data folder
+cd jenkins-ansible
+cp ../centos7/remote-key .
+vi hosts
+#
+[all:vars]
+
+ansible_connection = ssh
+
+[test]
+
+test1 ansible_host=remote_host ansible_user=remote_user ansible_private_key_file=/var/jenkins_home/ansible/remote-key
+# copy hosts to jenkins
+cp hosts ../jenkins_home/ansible/
+#
+docker exec -ti jenkins bash
+cd $HOME
+cd ansible
+ansible -i hosts -m ping test1
+# No errors
+```
+43) execute
+```
+# return to jenkins-data folder
+cd jenkins-ansible
+touch play.yml
+```
 <br>
