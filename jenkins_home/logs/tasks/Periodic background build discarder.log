@@ -1,6 +1,9 @@
-Started at Wed Jul 19 16:31:11 UTC 2023
+Started at Thu Jul 20 01:57:30 UTC 2023
+Processing backup-to-aws
+Offering backup-to-aws to Project Build Discarder
+backup-to-aws accepted by Project Build Discarder
 Processing my-first-job
 Offering my-first-job to Project Build Discarder
 Processing remote-task
 Offering remote-task to Project Build Discarder
-Finished at Wed Jul 19 16:31:11 UTC 2023. 4ms
+Finished at Thu Jul 20 01:57:30 UTC 2023. 4ms

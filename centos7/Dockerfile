@@ -18,10 +18,8 @@ RUN yum -y install mysql
 RUN yum -y install epel-release && \
     yum -y install python3-pip && \
     pip3 install --upgrade pip && \
-    pip3 install awscliv2 && \
-    /usr/local/bin/awsv2 --install
+    pip3 install awscli
 
-RUN echo 'alias aws="awsv2"' >> ~/.bashrc
 
 CMD /usr/sbin/sshd -D
 

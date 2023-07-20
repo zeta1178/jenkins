@@ -1,0 +1,22 @@
+Started by user [8mha:////4PbxapSkRS13vEAh9VIkQa0Gmd79biyw/Q1mAwu7ERVuAAAAlx+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzeEgZu/dLi1CL9xJTczDwACG0V4sAAAAA=[0mJenkins Admin
+Running as SYSTEM
+Building in workspace /var/jenkins_home/workspace/backup-to-aws
+[SSH] script:
+MYSQL_HOST="db_host"
+AWS_SECRET_KEY=**********
+PWD="/"
+DATABASE_NAME="testdb"
+AWS_BUCKET_NAME="project2331"
+MYSQL_PWD=**********
+
+/tmp/aws-s3.sh $MYSQL_HOST $MYSQL_PWD $DATABASE_NAME $AWS_SECRET_KEY $AWS_BUCKET_NAME
+
+
+[SSH] executing...
+Uploading your db-01-58-11.sql backup
+Completed 1.9 KiB/1.9 KiB (26.8 KiB/s) with 1 file(s) remainingupload: ../../tmp/db-01-58-11.sql to s3://project2331/db-01-58-11.sql
+
+[SSH] completed
+[SSH] exit-status: 0
+
+Finished: SUCCESS
