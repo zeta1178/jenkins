@@ -4,17 +4,15 @@ Building in workspace /var/jenkins_home/workspace/backup-to-aws
 [SSH] script:
 MYSQL_HOST="db_host"
 AWS_SECRET_KEY=**********
-PWD="/"
+MYSQL_PASSWORD=**********
 DATABASE_NAME="testdb"
 AWS_BUCKET_NAME="project2331"
-MYSQL_PWD=**********
 
-/tmp/aws-s3.sh $MYSQL_HOST $MYSQL_PWD $DATABASE_NAME $AWS_SECRET_KEY $AWS_BUCKET_NAME
-
+/tmp/aws-s3.sh $MYSQL_HOST $MYSQL_PASSWORD $DATABASE_NAME $AWS_SECRET_KEY $AWS_BUCKET_NAME
 
 [SSH] executing...
-Uploading your db-01-58-11.sql backup
-Completed 1.9 KiB/1.9 KiB (26.8 KiB/s) with 1 file(s) remainingupload: ../../tmp/db-01-58-11.sql to s3://project2331/db-01-58-11.sql
+Uploading your db-02-16-13.sql backup
+Completed 1.9 KiB/1.9 KiB (18.6 KiB/s) with 1 file(s) remainingupload: ../../tmp/db-02-16-13.sql to s3://project2331/db-02-16-13.sql
 
 [SSH] completed
 [SSH] exit-status: 0
