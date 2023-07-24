@@ -591,7 +591,27 @@ phpinfo(INFO_MODULES);
 
 ?>
 #check URL of jenkins server  with port 80
-#add file table.j2
+#add file table.j2 , from jenkins_home/ansible to root of web at /var/www/html
 docker cp table.j2 web:/var/www/html/index.php
+#create poeple.yml  in jenkins_home/ansible
+- hosts: web1
+  tasks:
+    - name: Tranfer template to web server
+      template:
+        src: table.j2
+        dest: /var/www/html/index.php
+#update hosts file in jenkins_home/ansible
+[all:vars]
+
+ansible_connection = ssh
+
+[test]
+
+test1 ansible_host=remote_host ansible_user=remote_user ansible_private_key_file=/var/jenkins_home/ansible/remote-key
+web1 ansible_host=web ansible_user=remote_user ansible_private_key_file=/var/jenkins_home/ansible/remote-key
+#confirm the new web1 connection
+docker exec -ti jenkins bash
+cd ansible 
+ansible -m ping -i hosts web1
 #
 ```
