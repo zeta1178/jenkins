@@ -590,5 +590,8 @@ phpinfo();
 phpinfo(INFO_MODULES);
 
 ?>
+#check URL of jenkins server  with port 80
+#add file table.j2
+docker cp table.j2 web:/var/www/html/index.php
 #
 ```
