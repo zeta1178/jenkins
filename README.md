@@ -188,7 +188,7 @@ cd tmp
 #
 ssh -i remote-key remote_user@remote_host
 ```
-15) in the web app, go to Manage Jnekins, Plugins, find SSH, install, restart
+15) in the web app, go to Manage Jenkins, Plugins, find SSH, install, restart
 16) execute
 ```
 # restart the service
