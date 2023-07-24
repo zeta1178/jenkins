@@ -461,7 +461,7 @@ services:
       - net
   db_host:
     container_name: db
-    image: mysql:5.7
+    image: mysql:8.0
     environment:
       - "MYSQL_ROOT_PASSWORD=1234"
     volumes:
@@ -510,5 +510,20 @@ ansible -i hosts -m ping test1
 # return to jenkins-data folder
 cd jenkins-ansible
 touch play.yml
+#
+- hosts: test1
+  tasks:
+
+    - shell: echo Hello World from Ansible > /tmp/ansible-file
+# from jenkins ansible run the follow or create jenkins pipeline
+ansible-playbook -i hosts play.yml
+#
+
 ```
+![Ansible Pipeline](3.jpg)
 <br>
+44) execute
+```
+#
+
+```
