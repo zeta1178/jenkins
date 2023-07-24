@@ -514,5 +514,14 @@ ansible-playbook -i hosts play.yml
 ![Ansible Pipeline](3.jpg)
 47) execute
 ```
-#Label
+#Edit play.yml
+- hosts: test1
+  tasks:
+   - debug:
+       msg: "{{ MSG }}"
 ```
+48) Ansible Pipeline
+![Ansible Pipeline](4.jpg)
+49) Ansible Pipeline 2
+![Ansible Pipeline](5.jpg)
+50) execute
