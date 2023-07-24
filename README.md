@@ -689,4 +689,16 @@ cd  /var/www/
 chown remote_user:remote_user /var/www/html/ -R
 ll
 #
+docker exec -ti jenkins bash
+cd 
+cd ansible
+ansible playbook -i hosts people.yml 
+#No Errors
+#
+ansible playbook -i hosts people.yml -e "PEOPLE_AGE=25"
+#
+#refresh web server, filter applies
+#
+#in jenkins web server, create new item, ansible-users-db
+#
 ```
