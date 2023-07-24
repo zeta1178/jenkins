@@ -620,7 +620,7 @@ ansible -m ping -i hosts web1
         src: table.j2
         dest: /var/www/html/index.php
 #
-#modify table.j2
+#modify table.j2 (jinja)
 #
 <!DOCTYPE html>
 <html>
@@ -673,5 +673,17 @@ ansible -m ping -i hosts web1
 </body>
 </html>
 #
+# copy table.j2 edits to web container, from jenkins-ansible
 #
+cp table.j2 ../jenkins_home/ansible/
+docker exec -ti jenkins bash
+cd 
+cd ansible
+ansible playbook -i hosts people.yml 
+#errors not writable folder
+#
+exit
+docker exec -ti web bash
+cd  /var/www/
+
 ```
