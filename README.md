@@ -525,3 +525,70 @@ ansible-playbook -i hosts play.yml
 49) Ansible Pipeline 2
 ![Ansible Pipeline](5.jpg)
 50) execute
+```
+#create web  foler and sub folders
+#edit dcoker-compose.yml
+#
+version: '3'
+services:
+  jenkins:
+    container_name: jenkins
+    image: jenkins/jenkins
+    ports:
+      - "8080:8080"
+    volumes:
+      - $PWD/jenkins_home:/var/jenkins_home
+    networks:
+      - net
+  remote_host:
+    container_name: remote-host
+    image: remote-host
+    build:
+      context: centos7
+    volumes:
+      - $PWD/aws-s3.sh:/tmp/aws-s3.sh
+    networks:
+      - net
+  db_host:
+    container_name: db
+    image: mysql:8.0
+    environment:
+      - "MYSQL_ROOT_PASSWORD=1234"
+    volumes:
+      - $PWD/db_data:/var/lib/mysql
+    networks:
+      - net
+  web:
+    container_name: web
+    image: ansible-web
+    build:
+      context: jenkins-ansible/web
+    ports:
+      - "80:80"
+    networks:
+      - net
+networks:
+  net: 
+#
+```
+51) execute
+```
+docker-compose build
+docker-compose up -d
+docker exec -ti web bash
+cd /var/www/html
+touch index.php
+vi index.php
+#
+<?php
+
+// Show all information, defaults to INFO_ALL
+phpinfo();
+
+// Show just the module information.
+// phpinfo(8) yields identical results.
+phpinfo(INFO_MODULES);
+
+?>
+#
+```
