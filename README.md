@@ -680,10 +680,13 @@ docker exec -ti jenkins bash
 cd 
 cd ansible
 ansible playbook -i hosts people.yml 
+#
 #errors not writable folder
 #
 exit
 docker exec -ti web bash
 cd  /var/www/
-
+chown remote_user:remote_user /var/www/html/ -R
+ll
+#
 ```
