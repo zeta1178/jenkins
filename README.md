@@ -592,14 +592,9 @@ phpinfo(INFO_MODULES);
 ?>
 #check URL of jenkins server  with port 80
 #add file table.j2 , from jenkins_home/ansible to root of web at /var/www/html
+#
 docker cp table.j2 web:/var/www/html/index.php
-#create poeple.yml  in jenkins_home/ansible
-- hosts: web1
-  tasks:
-    - name: Tranfer template to web server
-      template:
-        src: table.j2
-        dest: /var/www/html/index.php
+#
 #update hosts file in jenkins_home/ansible
 [all:vars]
 
@@ -609,9 +604,74 @@ ansible_connection = ssh
 
 test1 ansible_host=remote_host ansible_user=remote_user ansible_private_key_file=/var/jenkins_home/ansible/remote-key
 web1 ansible_host=web ansible_user=remote_user ansible_private_key_file=/var/jenkins_home/ansible/remote-key
+#
 #confirm the new web1 connection
+#
 docker exec -ti jenkins bash
 cd ansible 
 ansible -m ping -i hosts web1
+#
+#create new playbook people.yml in jenkins_home/ansible
+#
+- hosts: web1
+  tasks:
+    - name: Tranfer template to web server
+      template:
+        src: table.j2
+        dest: /var/www/html/index.php
+#
+#modify table.j2
+#
+<!DOCTYPE html>
+<html>
+<head>
+ <title>Table with database</title>
+ <style>
+  table {
+   border-collapse: collapse;
+   width: 100%;
+   color: #588c7e;
+   font-family: monospace;
+   font-size: 25px;
+   text-align: left;
+     }
+  th {
+   background-color: #588c7e;
+   color: white;
+    }
+  tr:nth-child(even) {background-color: #f2f2f2}
+ </style>
+</head>
+<body>
+ <table>
+ <tr>
+  <th>id</th>
+  <th>name</th>
+  <th>lastname</th>
+  <th>age</th>
+ </tr>
+ <?php
+  $conn = mysqli_connect("db", "root", "1234", "people");
+  // Check connection
+  if ($conn->connect_error) {
+   die("Connection failed: " . $conn->connect_error);
+  }
+  $sql = "SELECT id, name, lastname, age FROM register {% if PEOPLE_AGE is defined %} where age = {{ PEOPLE_AGE }} {% endif %}";
+  //$sql = "SELECT id, name, lastname, age FROM register where age = 25";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+   // output data of each row
+   while($row = $result->fetch_assoc()) {
+    echo "<tr><td>" . $row["id"]. "</td><td>" . $row["name"] . "</td><td>"
+. $row["lastname"]. "</td><td>" . $row["age"]. "</td></tr>";
+  }
+    echo "</table>";
+  } else { echo "0 results"; }
+  $conn->close();
+?>
+</table>
+</body>
+</html>
+#
 #
 ```
