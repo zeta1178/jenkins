@@ -104,7 +104,7 @@ docker-compose start
 docker-compose restart jenkins
 #
 ```
-8) exucute
+8) execute
 ```
 #
 mkdir centos7
@@ -363,14 +363,13 @@ docker cp aws-s3.sh remote-host:/tmp/aws-s3.sh
 34) check this is parameterized, follow screen, build environment use secret text, follow screen
 35) Configure jenkins project
 ![Parameters](1a.jpg)
-<br>
+36) Environment Variables
 ![Environment Variables](1.jpg)
-<br>
-35) create build step, execute shell on remote host 
+37) create build step, execute shell on remote host 
 ```
 /tmp/aws-s3.sh $MYSQL_HOST $MYSQL_PASSWORD $DATABASE_NAME $AWS_SECRET_KEY $AWS_BUCKET_NAME
 ```
-36) modify docker-compose.xml, to persist script for aws
+38) modify docker-compose.xml, to persist script for aws
 ```
 version: '3'
 services:
@@ -404,19 +403,19 @@ services:
 networks:
   net: 
 ```
-37) execute
+39) execute
 ```
 docker rm -fv remote-host
 docker-compose up -d
 ```
-38) execute
+40) execute
 ```
 # set folder jenkins-data
 mkdir jenkins-ansible
 cd jenkins-ansible
 touch Dockerfile
 ```
-39) edit Dockerfile inside jenkins-ansible
+41) edit Dockerfile inside jenkins-ansible
 ```
 FROM jenkins/jenkins
 
@@ -427,7 +426,7 @@ RUN apt-get update && apt-get install python3-pip -y && \
 
 USER jenkins
 ```
-40) return to jenkins-data folder, edit docker-compose.yml
+42) return to jenkins-data folder, edit docker-compose.yml
 ```
 version: '3'
 services:
@@ -463,14 +462,14 @@ services:
 networks:
   net:
 ```
-41) execute
+43) execute
 ```
 #rebuild
 docker-compose build
 docker-compose up -d
 docker exec -ti jenkins bash
 ```
-42) execute
+44) execute
 ```
 #return to jenkins-data folder
 mkdir jenkins_home/ansible
@@ -497,7 +496,7 @@ cd ansible
 ansible -i hosts -m ping test1
 # No errors
 ```
-43) execute
+45) execute
 ```
 #return to jenkins-data folder
 cd jenkins-ansible
@@ -511,9 +510,9 @@ touch play.yml
 ansible-playbook -i hosts play.yml
 #
 ```
+46) Ansible Pipeline
 ![Ansible Pipeline](3.jpg)
-<br>
-44) execute
+47) execute
 ```
 #Label
 ```
