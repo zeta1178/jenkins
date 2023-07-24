@@ -177,7 +177,7 @@ docker exec -ti jenkins bash
 ssh remote_user@remote_host
 # say yes to add fingerprint
 ```
-14)
+14) execute
 ```
 # copy ssh key to the jenkins container
 docker cp remote-key jenkins:/tmp/remote-key
@@ -189,18 +189,14 @@ cd tmp
 ssh -i remote-key remote_user@remote_host
 ```
 15) in the web app, go to Manage Jnekins, Plugins, find SSH, install, restart
-<br>
 16) execute
 ```
 # restart the service
 docker-compose start
 ```
 17) in the web app, go to Manage Jenkins, Credentials, Global, Add Credentials, pick SSH Username and private key
-<br>
 18) Username=remote_user , select Private Key
-<br>
-19) in EC2, cd jenkins-data, cd centos7 
-<br>
+19) in EC2, cd jenkins-data, cd centos7
 20) execute
 ```
 #
@@ -209,7 +205,6 @@ cat < remote-key
 # paste in the web app
 ```
 21) in the web app, go to Manage Jenkins, System, scroll down to SSH, select credential created in above steps, use Port 22, use Hostname= remote_host, check connection, and Save
-<br>
 22) Create item
 ```
 # create new item, remote-task, build step, execute shell on remote host
@@ -230,9 +225,7 @@ vi remote-file
 #
 ```
 24) in the web app, go to Manage Jenkins, Credentials, Global, new Credentials, Secret Text, MYSQL_PASSWORD = 1234
-<br>
 25) in the web app, go to Manage Jenkins, Credentials, Global, new Credentials, Secret Text, AWS_SECRET_KEY
-<br>
 26) modify docker-compose.yml
 ```
 version: '3'
@@ -313,7 +306,6 @@ CMD /usr/sbin/sshd -D
 cd ..
 docker-compose build
 ```
-
 30) execute 
 ```
 docker-compose up -d
@@ -369,7 +361,7 @@ docker cp aws-s3.sh remote-host:/tmp/aws-s3.sh
 ```
 33) in the web app, go to new item, label "backup-to-aws", freestyle, save
 34) check this is parameterized, follow screen, build environment use secret text, follow screen
-### Configure jenkins project
+35) Configure jenkins project
 ![Parameters](1a.jpg)
 <br>
 ![Environment Variables](1.jpg)
@@ -473,18 +465,18 @@ networks:
 ```
 41) execute
 ```
-# rebuild
+#rebuild
 docker-compose build
 docker-compose up -d
 docker exec -ti jenkins bash
 ```
 42) execute
 ```
-# return to jenkins-data folder
+#return to jenkins-data folder
 mkdir jenkins_home/ansible
-# return to jenkins-data folder
+#return to jenkins-data folder
 cp centos7/remote-key jenkins_home/ansible/
-# return to jenkins-data folder
+#return to jenkins-data folder
 cd jenkins-ansible
 cp ../centos7/remote-key .
 vi hosts
@@ -496,7 +488,7 @@ ansible_connection = ssh
 [test]
 
 test1 ansible_host=remote_host ansible_user=remote_user ansible_private_key_file=/var/jenkins_home/ansible/remote-key
-# copy hosts to jenkins
+#copy hosts to jenkins
 cp hosts ../jenkins_home/ansible/
 #
 docker exec -ti jenkins bash
@@ -507,7 +499,7 @@ ansible -i hosts -m ping test1
 ```
 43) execute
 ```
-# return to jenkins-data folder
+#return to jenkins-data folder
 cd jenkins-ansible
 touch play.yml
 #
@@ -515,15 +507,13 @@ touch play.yml
   tasks:
 
     - shell: echo Hello World from Ansible > /tmp/ansible-file
-# from jenkins ansible run the follow or create jenkins pipeline
+#from jenkins ansible run the follow or create jenkins pipeline
 ansible-playbook -i hosts play.yml
 #
-
 ```
 ![Ansible Pipeline](3.jpg)
 <br>
 44) execute
 ```
-#
-
+#Label
 ```
