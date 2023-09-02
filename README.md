@@ -167,7 +167,7 @@ networks:
 docker-compose build
 #
 docker-compose up -d
-#
+# docker builder prune (if needing to clear container cache)
 ```
 13) ssh from jenkins container to remote-host
 ```
